@@ -1,0 +1,11 @@
+services:
+  database:
+    image: mysql:8
+    container_name: gamehub-database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gamehub
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
