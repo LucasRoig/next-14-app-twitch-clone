@@ -3,7 +3,8 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isPublic = createRouteMatcher([
   '/sign-in(.*)',
   '/sign-up(.*)',
-  '/public-images(.*)'
+  '/public-images(.*)',
+  '/api/webhooks(.*)'
 ]);
 
 
