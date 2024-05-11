@@ -1,6 +1,23 @@
 import { db } from "./db";
 import { getSelf } from "./auth-service";
 
+export async function getFollowedUser() {
+  try {
+    const self = await getSelf();
+    const followedUsers = db.follow.findMany({
+      where: {
+        followerId: self.id,
+      },
+      include: {
+        following: true,
+      },
+    });
+    return followedUsers;
+  } catch {
+    return [];
+  }
+}
+
 export async function isFollowingUser(userId: string) {
   try {
     const self = await getSelf();
@@ -22,8 +39,8 @@ export async function isFollowingUser(userId: string) {
       where: {
         followerId: self.id,
         followingId: otherUser.id,
-      }
-    })
+      },
+    });
 
     return Boolean(existingFollow);
   } catch (error) {
@@ -109,7 +126,7 @@ export async function unfollowUser(id: string) {
     },
     include: {
       following: true,
-    }
+    },
   });
 
   return result;

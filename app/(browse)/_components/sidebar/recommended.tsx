@@ -21,12 +21,7 @@ export function Recommended({ data }: RecommendedProps) {
       )}
       <ul className="space-y-2 px-2">
         {data.map((user) => (
-          <UserItem
-            key={user.id}
-            username={user.username}
-            imageUrl={user.imageUrl}
-            isLive={true}
-          />
+          <UserItem key={user.id} username={user.username} imageUrl={user.imageUrl} isLive={true} />
         ))}
       </ul>
     </div>
@@ -35,7 +30,7 @@ export function Recommended({ data }: RecommendedProps) {
 
 export function RecommendedSkeleton() {
   return (
-    <ul className="px-2">
+    <ul>
       {[...Array(3)].map((_, index) => (
         <UserItemSkeleton key={index} />
       ))}

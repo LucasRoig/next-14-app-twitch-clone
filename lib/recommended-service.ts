@@ -15,14 +15,27 @@ export async function getRecommended() {
     userId = undefined;
   }
 
-  let users: Prisma.Result<typeof db.user, {}, "findMany"> = []
+  let users: Prisma.Result<typeof db.user, {}, "findMany"> = [];
 
   if (userId) {
     users = await db.user.findMany({
       where: {
-        NOT: {
-          id: userId,
-        },
+        AND: [
+          {
+            NOT: {
+              id: userId,
+            },
+          },
+          {
+            NOT: {
+              followers: {
+                some: {
+                  followerId: userId,
+                },
+              },
+            },
+          },
+        ],
       },
       orderBy: {
         createdAt: "desc",
